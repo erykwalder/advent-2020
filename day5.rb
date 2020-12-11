@@ -1,8 +1,4 @@
-def seat_id(row, col)
-  row * 8 + col
-end
-
-def partition_to_num(partition)
+def partition_to_seat_id(partition)
   partition.tr("FBLR", "0101").to_i(2)
 end
 
@@ -10,7 +6,7 @@ def read_seats
   File.open('input5.txt').each
     .map {|line| line.strip}
     .map do |part|
-      seat_id(partition_to_num(part[0..6]), partition_to_num(part[7..9]))
+      partition_to_seat_id(part)
     end
 end
 
