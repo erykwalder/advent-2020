@@ -3,11 +3,8 @@ def partition_to_seat_id(partition)
 end
 
 def read_seats
-  File.open('input5.txt').each
-    .map {|line| line.strip}
-    .map do |part|
-      partition_to_seat_id(part)
-    end
+  File.foreach('input5.txt')
+    .map {|part| partition_to_seat_id(part.strip)}
 end
 
 def day5a

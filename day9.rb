@@ -1,9 +1,7 @@
 require 'set'
 
 def read_numbers
-  File.open("input9.txt").each
-    .reject(&:empty?)
-    .map(&:to_i)
+  File.foreach("input9.txt").reject(&:empty?).map(&:to_i)
 end
 
 def find_invalid_num(nums)

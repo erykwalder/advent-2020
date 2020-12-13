@@ -9,9 +9,9 @@ def valid_password_b?(policy, password)
 end
 
 def day2
-  File.open("input2.txt").each
-    .map {|line| line.strip}
-    .reject {|line| line.empty?}
+  File.foreach("input2.txt")
+    .map(&:strip)
+    .reject(&:empty?)
     .count do |line|
       policy, password = line.split(": ")
       valid_password_b?(policy, password)

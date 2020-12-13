@@ -41,8 +41,8 @@ class VM
 end
 
 def read_instructions
-  File.open("input8.txt").each
-    .reject {|line| line.empty?}
+  File.foreach("input8.txt")
+    .reject(&:empty?)
     .map do |line|
       op, arg = /^(acc|jmp|nop) ([+-]\d+)$/.match(line).captures
       {op: op, arg: arg.to_i}

@@ -32,8 +32,8 @@ class RuleScanner
 end
 
 def read_rules
-  File.open("input7.txt").each
-    .reject {|line| line.empty?}
+  File.foreach("input7.txt")
+    .reject(&:empty?)
     .map {|line| RuleScanner.new(line).scan}
 end
 

@@ -1,5 +1,5 @@
 def read_instructions
-  File.open('input12.txt').each.filter_map do |line|
+  File.foreach('input12.txt').filter_map do |line|
     unless line.empty?
       action, value = /([NSEWLRF])(\d+)/.match(line).captures
       {action: action, value: value.to_i}

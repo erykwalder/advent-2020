@@ -1,7 +1,6 @@
 def read_candidates
-  File.open("input1.txt").each
-    .map {|line| line.strip}
-    .reject {|line| line.empty?}
+  File.foreach("input1.txt")
+    .reject(&:empty?)
     .map(&:to_i)
 end
 

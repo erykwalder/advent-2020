@@ -1,5 +1,5 @@
 def read_volts
-  File.open('input10.txt').each.reject(&:empty?).map(&:to_i)
+  File.foreach('input10.txt').reject(&:empty?).map(&:to_i)
 end
 
 def day10a

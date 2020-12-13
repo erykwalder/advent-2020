@@ -1,7 +1,7 @@
 def read_map
-  read_map = File.open("input3.txt").each
-    .map {|line| line.strip}
-    .reject {|line| line.empty?}
+  read_map = File.foreach("input3.txt")
+    .map(&:strip)
+    .reject(&:empty?)
 end
 
 def trees_hit(map, right, down)

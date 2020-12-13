@@ -13,7 +13,7 @@ OCCUPIED = "#"
 FLOOR = "."
 
 def read_seat_map
-  File.open('input11.txt').each.reject(&:empty?).map(&:strip).map(&:chars)
+  File.foreach('input11.txt').reject(&:empty?).map(&:strip).map(&:chars)
 end
 
 def in_map_bounds?(seat_map, r, c)
