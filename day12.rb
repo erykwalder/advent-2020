@@ -7,34 +7,39 @@ def read_instructions
   end
 end
 
+def move(coords, dir, amount)
+  case dir
+    when "N"
+      coords[:north] += amount
+    when "S"
+      coords[:north] -= amount
+    when "E"
+      coords[:east] += amount
+    when "W"
+      coords[:east] -= amount
+  end
+end
+
+DIRECTIONS = {
+  0 => "E",
+  90 => "N",
+  180 => "W",
+  270 => "S"
+}
+
 def day12a
   coords = {north: 0, east: 0}
   direction = 0
   read_instructions.each do |inst|
     case inst[:action]
-    when "N"
-      coords[:north] += inst[:value]
-    when "S"
-      coords[:north] -= inst[:value]
-    when "E"
-      coords[:east] += inst[:value]
-    when "W"
-      coords[:east] -= inst[:value]
+    when "N", "S", "E", "W"
+      move(coords, inst[:action], inst[:value])
     when "L"
       direction = (direction + inst[:value]) % 360
     when "R"
       direction = (direction - inst[:value]) % 360
     when "F"
-      case direction
-      when 0
-        coords[:east] += inst[:value]
-      when 90
-        coords[:north] += inst[:value]
-      when 180
-        coords[:east] -= inst[:value]
-      when 270
-        coords[:north] -= inst[:value]
-      end
+      move(coords, DIRECTIONS[direction], inst[:value])
     end
   end
   [coords[:north].abs, coords[:east].abs].sum
@@ -45,23 +50,12 @@ def day12b
   coords = {north: 0, east: 0}
   read_instructions.each do |inst|
     case inst[:action]
-    when "N"
-      waypoint[:north] += inst[:value]
-    when "S"
-      waypoint[:north] -= inst[:value]
-    when "E"
-      waypoint[:east] += inst[:value]
-    when "W"
-      waypoint[:east] -= inst[:value]
+    when "N", "S", "E", "W"
+      move(waypoint, inst[:action], inst[:value])
     when "L", "R"
       inst[:value] = 360 - inst[:value] if inst[:action] == "R"
-      case inst[:value]
-      when 90
+      (inst[:value]/90).times do 
         waypoint = {north: waypoint[:east], east: -waypoint[:north]}
-      when 180
-        waypoint = {north: -waypoint[:north], east: -waypoint[:east]}
-      when 270
-        waypoint = {north: -waypoint[:east], east: waypoint[:north]}
       end
     when "F"
       coords[:north] += waypoint[:north] * inst[:value]
